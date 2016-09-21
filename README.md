@@ -4,5 +4,7 @@ This is a MATLAB graphical user interface for performing linear unmixing on mult
 
 ## Contributors
 
-- [Zachary T. Harmany](http://drz.ac), PhD, Department of Pathology and Laboratory Medicine, UC Davis Medical Center
+- [Zachary T. Harmany](http://drz.ac), PhD, Department of Pathology and Laboratory Medicine, UC Davis Medical Center. (ztharmany@ucdavis.edu)
+
+- Nenad Bozinovic (nesaboz@gmail.com)
 
