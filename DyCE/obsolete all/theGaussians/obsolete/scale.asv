@@ -1,0 +1,13 @@
+function A = scale(B,Bnewmin,Bnewmax,Bmin,Bmax)
+% function A = scale(B,Bnewmin,Bnewmax,Bmin,Bmax)
+% Scales image B from [Bmin,Bmax] to [Bnewmin,Bnewmax
+% if Bmin and Bmax are omited they are calculated
+if nargin < 4
+    Bmin = min(B(:));
+    Bmax = max(B(:));
+end
+if Bmin == Bmax 
+    A = ones(size(B)).*min(B(:)) + 1 ;
+else
+    A = Bnewmin + (Bnewmax - Bnewmin) * (B - Bmin)/(Bmax - Bmin);
+end

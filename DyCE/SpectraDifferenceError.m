@@ -1,0 +1,38 @@
+function costFunction = SpectraDifferenceError(mixedSpectrum, autoSpectrum, parameters)
+% function costFunction = SpectraDifferenceError(mixedSpectrum, autoSpectrum, parameters)
+% This function outputs the value 'costFunction' depending on two
+% parameters 'magnitude' and 'offset'.
+% The costFunction is used to be minimized later, and optimal 'magnitude' and 'offset' are to be found.
+%
+% N. Bozinovic, 08/15/08
+% Credits K. Gossage
+
+magnitude = parameters(1);
+if length(parameters) == 1 
+    offset = 0;
+elseif length(parameters) == 2 
+    offset = parameters(2);
+else
+    msgbox('number of parameters is neither 1 nor 2');
+    return;
+end
+
+tolerance = 0.01;
+% diffSpec, diffSpecErr and diffSpecErr2 are just temporal variables
+diffSpec = zeros(size(mixedSpectrum));
+diffSpec = mixedSpectrum + offset - magnitude * autoSpectrum;
+diffSpecErr = zeros(size(mixedSpectrum));
+diffSpecErr = diffSpec ./ sqrt(mixedSpectrum);
+
+diffSpecErr2 = zeros(size(mixedSpectrum));
+diffSpecErr2 = ( abs(diffSpecErr) > tolerance ) .* diffSpecErr;
+
+% this is the cost function
+%costFunction = sum (  ( exp( (-1) * diffSpecErr2) + 1 ) .* (diffSpecErr2 .^ 2) ) ;
+costFunction = sum (  ( exp( (-1) * diffSpecErr2) + 1) .* (diffSpecErr2 .^ 2) ) ;
+% plot(diffSpec);
+% hold on
+% plot(diffSpecErr2,'r');
+% hold on
+% plot( (exp( -exponentialCoefficient * diffSpecErr2) + 1 ) .* (diffSpecErr2 .^ 2),'g' )
+% legend('diffspec','diffSpecErr2','cost fcn');

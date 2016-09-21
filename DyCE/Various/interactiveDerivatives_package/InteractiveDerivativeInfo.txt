@@ -1,0 +1,66 @@
+Interactive Derivative for time-series signals.
+
+Interactive differentiation for time-series signals, with sliders 
+that allow you to adjust the derivative order, smooth width, and 
+scale expansion continuously while observing the effect on your 
+signal dynamically. Run InteractiveDerivativeTest to see how it 
+works.  Details are in the text file InteractiveDerivativeInfo.txt. 
+Typical applications of differentiation in measurement are described
+in http://www.wam.umd.edu/~toh/spectrum/Differentiation.html
+ Tom O'Haver, toh@umd.edu, July 2006.  
+ Slider function by Matthew Jones.
+
+
+InteractiveDerivative
+
+Interactive smoothing for your own data, with sliders to control 
+derivative order, smooth width, and scale expansion.  To use it, 
+place your signal in the global variables "x" and "signal" and then
+execute this m-file. The smoothed derivative is placed in global 
+variable "derivative". The actual differentiation is performed by the 
+function  InteractiveDerivativeRedraw, which is called when the sliders
+are moved. If you wish, you can change the maximum range of the smooth 
+width slider (MaxSmoothwidth in line 14) and the maximum range of the 
+derivative order slider (MaxDerivativeOrder in line 15). You can also
+change the smoothing function by replacing "fastsbmooth" in
+InteractiveDerivativeRedraw with any other smoothing function.
+
+
+InteractiveDerivativeTest
+
+Test of InteractiveDerivative. Generates a synthetic
+signal assigned to "signal", then calls InteractiveDerivative.
+
+
+DerivativeDemo
+
+Demonstration of the application of differentiation to
+the detection of peaks superimposed on a strong, variable 
+background. Generates a signal peak, adds random noise and 
+a variable background, then differentiates and smooths it, and 
+measures the signal range and signal-to-noise ratio (SNR). 
+Interactive sliders allow you to control the following variables:
+Amp: The amplitude (peak height) of the signal peak.  
+     Default range: 0-3
+Back1: The amplitude of the background. 
+       Default range: 0 to 20
+Back2: The position of the background. 
+       Default range: -800 to +800
+Noise: Random white noise added to the signal.  
+        Default range: 0 - 0.5
+Order: Derivative order. Default range: 0-4
+Scale: Scale expansion of the y-axis. 
+        Default range: 0.1 - 10.
+Smooth: Width of the smoothing function, in data points. 
+        Default range: 0 - 100
+Resample: Applies different random noise samples, to demonstrate 
+          the low-frequency noise that remains after smoothing. 
+
+function SmoothY=fastbsmooth(Y,smoothwidth)
+ Smooths vector Y by unweighted sliding-average (boxcar)
+ smooth of width = smoothwidth. Works well with signals up  to 
+ 100,000 points in length and smooth widths of 1000 points or more.
+ Faster than convolution-based smooths for large smooth widths.
+
+function d=deriv(a)
+First derivative of a signal using 2-point central difference.

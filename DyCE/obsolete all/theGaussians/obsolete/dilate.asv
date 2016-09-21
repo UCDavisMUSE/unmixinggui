@@ -1,0 +1,6 @@
+clc;
+% function maskOut = dilate(maskIn)
+N = size(maskIn);
+for i = 1:N(1)
+    for j = 1:N(2)
+    

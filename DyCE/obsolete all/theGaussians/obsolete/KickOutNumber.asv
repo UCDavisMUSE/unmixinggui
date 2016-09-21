@@ -1,0 +1,12 @@
+function newArray = KickOutNumber(array,number)
+% function newArray = KickOutNumber(array,number)
+% Kicks out number from array, for example, 
+newArray = zeros(1,length(array) - 1);
+index = find(array == number);
+j = 0;
+for i = 1:length(array)
+    if i ~= index
+        j = j + 1;
+        newArray(j) = array(i);
+    end
+end

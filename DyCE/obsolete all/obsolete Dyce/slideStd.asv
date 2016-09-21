@@ -1,0 +1,13 @@
+function y = slideStd(x,n);
+N = size(x,2);
+y = zeros(size(x));
+d = round(n/2);
+if mod(n,2) == 0
+    d = n/2;
+else
+    d = n/2 + 1;
+end
+
+for i = d + 1 : N - d
+    y(i) = std(x(i- n/2 :i+2));
+end

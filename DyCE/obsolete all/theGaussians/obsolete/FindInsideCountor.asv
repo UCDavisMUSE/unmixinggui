@@ -1,0 +1,9 @@
+function insideContour = FindInsideCountor( mask, delta);
+temp1 = ErodeMask( mask, delta);
+temp2 = ErodeMask(tem);
+
+    maskEroded2 = ErodeMask(maskEroded1);
+    maskEroded3 = ErodeMask(maskEroded2);
+    maskEroded4 = ErodeMask(maskEroded3);  
+    maskEroded = maskEroded4 - maskEroded3;  
+    insideContour = maskEroded(:,:,i) < 0;

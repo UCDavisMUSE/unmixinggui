@@ -1,0 +1,34 @@
+function forPresenting(x,coeff,numberOfOrgans,mi,ma)
+maps;
+N = size(x);
+coeffReshaped = zeros(N,N,numberOfOrgans);
+pos(1);
+for i = 1:size(coeff,1);
+   
+    coeffReshaped(:,:,i) = reshape(coeff(i,:),N,N);
+    
+    %for contours only
+    %subimage(250*uint8(coeffReshaped(:,:,i)/max(max(coeffReshaped(:,:,i)))),map);
+    subplot(2,2,i);
+     switch i
+        case 1
+            map = mapRed;
+        case 2 
+            map = mapGreen;
+        case 3 
+            map = mapBlue;
+     end
+   
+    a = uint8(scale(coeffReshaped(:,:,i),mi,ma));
+    subimage(a,map);
+    %colormap(map); %can be made better, but its working
+    colorbar(gcf);
+    %image(200*coeffReshaped(:,:,i)); colormap(gray)
+    axis square off;
+    title(['comp ' num2str(i)]);
+end
+subplot(2,2,4);
+image(scale(coeffReshaped,0,1));
+axis square off;
+title('Method')
+colorbar

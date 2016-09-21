@@ -1,0 +1,1 @@
+function g = gaussian(x,pos,wid)%  gaussian(x,pos,wid) = gaussian peak centered on pos, half-width=wid%  x may be scalar, vector, or matrix, pos and wid both scalar%  T. C. O'Haver, 1988g = exp(-((x-pos)/(0.6006.*wid)) .^2);

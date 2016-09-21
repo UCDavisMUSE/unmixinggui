@@ -1,0 +1,4 @@
+a = 10:15;
+b = zeros(
+find(a == 14)
+b = zeros(

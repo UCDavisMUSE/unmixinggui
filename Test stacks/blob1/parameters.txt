@@ -1,0 +1,28 @@
+blob1: 
+param 11: 0.1
+param 12: 0.2
+param 13: 0.1
+param 14: 0.9
+i: 65
+j: 65
+blob2: 
+param 21: 0.2
+param 22: 0.2
+param 21: 0.1
+param 24: 0.8
+i: 104
+j: 104
+blob3: 
+param 31: 0.5
+param 32: 0.2
+param 33: 0.1
+param 34: 0.7
+i: 64
+j: 64
+blob4: 
+param 41: 0.5
+param 42: 0.2
+param 43: 0.6
+param 44: 0.6
+i: 150
+j: 150

@@ -1,0 +1,7 @@
+function organSpectrum = Shrink(organSpectrum, background)
+% function background = shrink(organSpectrum,background)
+% it shrinks the background and subtracts it from the organSpectrum  
+plot(
+[junk,I] = max(background - organSpectrum);
+background = background * ( organSpectrum(I) / background(I) );
+organSpectrum = organSpectrum - background;

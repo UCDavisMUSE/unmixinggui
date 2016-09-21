@@ -1,0 +1,68 @@
+function [compositeImage, thresholdedImage] = Composite(organList, threshold)
+% function [compositeImage, thresholdedImage] = Composite(organList,
+% threshold)
+%
+% Obtaines and presents 'compositeImage' and 'thresholdedImage' from
+% organList stack. Uses 'threshold' to obtain 'thresholdImage' (default
+% 0.4).
+%
+% N.Bozinovic 08/15/08
+% Credits Tsung-Han Chan (Virginia Tech)
+
+if nargin < 2 
+    threshold = 0.4;
+end
+
+mapGray = colormap(gray(256));
+N = size(organList);
+compositeImage = zeros(N(1), N(2), 3);
+thresholdedImage = zeros(N(1), N(2), 3);
+% There are 8 color maps
+cMap = [1 0 0; 0 1 0; 0 0 1; 0.7 0 0.7; 0 0.7 0.7; 0.7 0.7 0; 0.5 0.5 0.5];
+
+% next 4 lines are to make sure the N(3) exists.
+Pos(1);
+if size(N,2) < 3
+    N(3) = 1;
+end
+
+for i = 1:N(3)
+     compositeTemp = organList(:,:,i);
+     ma = max( compositeTemp(:));
+     if ma ~= 0 
+        compositeTemp = compositeTemp / ma;
+        compositeTemp = compositeTemp .* ( compositeTemp > 0);
+     else
+        compositeTemp = zeros( N(1), N(2));
+     end
+     
+     subplot(2,4,i);
+     imshow( 250*compositeTemp, mapGray );
+     
+     ma = max( compositeTemp(:));
+     mi = min( compositeTemp(:));
+     threshTemp = compositeTemp > threshold * ( ma - mi ) + mi;
+     threshTemp = DilateMask( DilateMask( ErodeMask( ErodeMask( threshTemp))));
+     
+     compositeImage = compositeImage + BWToRGB( compositeTemp, cMap(i,:));
+     thresholdedImage = thresholdedImage + BWToRGB( threshTemp, cMap(i,:));
+end
+Pos(3)
+imshow( compositeImage );
+Pos(4)
+imshow( thresholdedImage );
+
+%-------------------------------------------------
+
+function RGBImage = BWToRGB( BWimage, weight)
+% function RGBImage = BWToRGB( BWimage, weight)
+%
+% converts grays
+if nargin < 2
+    weight = 1;
+end
+N = size(BWimage);
+RGBImage = zeros(N(1),N(2),3);
+for i = 1:3
+    RGBImage(:,:,i) = BWimage * weight(i);
+end

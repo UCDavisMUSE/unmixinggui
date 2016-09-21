@@ -1,0 +1,9 @@
+[mask(:,:,1), spectrum] = FindBackgroundMask(mask);
+
+DilateMask ( sum( mask(:,:,2:M(3)), 3), 5 );
+ = (mask(:,:,1) - maskOfAllOrgans ) > 0;
+ 
+ % finds the background spectrum imediatelly
+
+
+

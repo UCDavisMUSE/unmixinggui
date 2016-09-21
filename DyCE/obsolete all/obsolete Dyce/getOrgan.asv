@@ -1,0 +1,11 @@
+function [ratio,snr] = getOrgan(organList)
+
+
+ratio = mean(mean(organList(:,:,1))) / mean(mean(organList(:,:,2)));
+
+snr1 = getSNR(organList(:,:,2));
+snr2 = getSNR(organList(:,:,3));
+if snr1>snr2
+    snr = snr1;
+    
+snr = max(snr1,snr2);

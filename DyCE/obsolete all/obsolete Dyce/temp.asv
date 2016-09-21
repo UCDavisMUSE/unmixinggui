@@ -1,0 +1,3 @@
+function temp(a,b);
+varargin{1}
+ischar(varargin(1))

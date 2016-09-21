@@ -1,0 +1,13 @@
+function Putis(X,myTitle,windowPosition,axisScale)
+%function Puti(X,myTitle,windowPosition,axisScale)
+
+
+if nargin == 4
+    imagesc(X,[axisScale]);
+else
+    imagesc(X);
+end
+axis off image;
+colormap(gray);
+title(myTitle);
+colorbar;

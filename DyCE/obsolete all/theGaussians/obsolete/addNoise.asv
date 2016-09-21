@@ -1,0 +1,4 @@
+function J = addNoise(I,sigma)
+for i = 1:size(I,3)
+    J(:,:,i) = I(:,:,i) + randn(size(I,1)
+end

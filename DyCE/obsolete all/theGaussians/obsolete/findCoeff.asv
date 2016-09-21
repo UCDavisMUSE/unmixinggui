@@ -1,0 +1,40 @@
+function coeffReshaped = findCoeff(spectra, stackedCube, N, index)
+% function coeffreshaped = findCoeff(spectra, stackedCube, N, index)
+%
+% Solves the equation stackedCube = spectra*coeff, for coeff variable.
+% Dimensions are: 
+% [N(3) x N(1)*N(2)] = [N(3) x numberOfComponents] * 
+%                      [numberOfComponents x N(1)*N(2)].
+%
+% input: 'spectra' - each column represents organ's pure time spectra,
+%        'stackedCube' - each row represents intensity of one pixel in time
+%        (use StackCube.m to get this variable),
+%        'N' - size of the cube,
+%        'index' - chooses reconstruction method to be used:
+%                1) pseudo-inverse,
+%                2) normal equations (this is what Kirk is using),
+%                3) non-negative least square method.
+% 
+% N. Bozinovic, 08/18/08
+
+numberOfComponents = size( spectra, 2);
+coeff = zeros( numberOfComponents, N(1) * N(2));
+switch index
+    case 1
+        coeff = pinv( spectra) * stackedCube;
+    case 2
+        % normal equations: (A' * A)^-1 * A' * y 
+        coeff = inv( spectra' *spectra)* spectra' * stackedCube;
+    case 3
+        h = waitbar( 0, 'Please wait ...');
+        for i = 1 : N(1) * N(2)
+            waitbar(i / N(1) / N(2), h);
+            coeff(:,i) = lsqnonneg( spectra, stackedCube(:,i));
+        end
+        close(h)
+end
+
+coeffReshaped = zeros( N(1), N(2), numberOfComponents);
+for i = 1 : numberOfComponents
+    coeffReshaped(:,:,i) = reshape( coeff(i,:), N(1), N(2));
+end

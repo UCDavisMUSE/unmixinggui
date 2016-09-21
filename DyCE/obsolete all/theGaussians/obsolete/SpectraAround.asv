@@ -1,0 +1,16 @@
+function array = SpectraAround(cube,mask,xi,yi,delta)
+if nargin < 5
+    delta = 5;
+end
+
+N = size(cube);
+for i = -delta:delta
+    for j = -delta:delta
+        if ((xi + i < 1)|| (xi + i > N(1))||(yi + j < 1)|| (yi + j > N(2)))
+            msgbox('You are too close to the border (make delta smaller or choose xi,yi more toward the center)');
+            return
+        end
+        s = zeros(
+        if mask(xi + i, yi + j) == 1
+            s = s + shiftdim( x(xi + i, yi + j,:) , 1);  
+array = shiftdim ( mean ( mean( cube( x-5:x+5 , y-5:y+5 , :),1 ),2),1 );

@@ -1,0 +1,169 @@
+%%
+%%
+    function meanSpec = CalculateMeanSpectra(cube)
+        N  = size(cube);
+        for i = 1:N(3)
+             meanSpec(i) = mean(mean(cube(:,:,i)));
+        end
+%%
+%%
+%%
+    function image = FillImage(cube)
+        image = mean(cube,3);
+%%
+%%
+    function scaler = CalculateWeightMatrix(vector, cube)
+        N = size(cube);
+        den = vector'*vector;
+        for i = 1:N(1)
+            for j = 1:N(2)
+                scaler(i,j) = CalculateCoefficients(vector, den, i, j, cube);
+            end
+        end
+%%
+%%
+    function cube  = SubtractSpectra(vector, image, cube)
+        N = size(cube);
+        for i = 1:N(1)
+            for j = 1:N(2)
+                for w = 1:N(3)
+                    if image(i,j) > 0
+                        cube(i,j,w) = cube(i,j,w) - image(i,j)*vector(w);
+                        if cube(i,j,w) < 0
+                            cube(i,j,w) = 0;
+                        end
+                    end
+                end
+            end
+        end
+%%
+%% main program begins
+N = size(cube);
+maxComponents = 10;
+belowError = false;
+errorLimit = 0.01;
+
+vector = zeros(N(3),1);  % this variable contains spectra that will be written in the endmember matrix as a column
+scaler = zeros(N(1),N(2)); % this is an image
+baseImage = zeros(N(1),N(2));
+endMembers = zeros(N(3),10);  % containes spectra of those 10 RCA components
+imageList = zeros(N(1),N(2),10); % containes images of the RCA components
+
+vector = CalucateMeanSpectra(cube);
+baseImage = mean(cube,3);
+rawMax = max(max(baseImage));
+maxError = rawMax * errorLimit;
+totalContribution = sum(sum(baseImage));
+index = 0;
+while(~belowError && index < maxComponents)
+    % Add the current vector to the set of selected End-members
+    endMembers(:,i) = vector;
+    %Calculate the best fit scale factors accross the cube. This is a single spectrum unmixing
+    scaler = CalculateWeightMatrix(vector, cube);
+    % Store current image before subtracting off scaled vector
+    oldImage = mean(cube,3);
+    % Subtract off scaled vector component from current data set
+    cube = SubtractSpectra(vector, scaler, cube);
+    % Store new image with vector subtracted off
+    image = mean(cube,3);
+    % Check to see if new image is now less than error threshold
+    currentMax = max(max(image));
+    if (maxError > currentMax) 
+        bellowError = true;
+    else
+        bellowError = false;
+    end
+    % Subtract new image from oldImage to see what was associated with current vector
+    % Just using oldImage for storage so I don't have to create another array in memory
+    oldImage = oldImage - image;
+    % Find contribution in difference image
+    percent = round(100*currentMax/rawMax);
+    name = [num2str(i) ' - ' num2str(percent) ' percents'];
+    imageList(:,:,i) = oldImage;
+    % I want to determine the new End-member based on what is stored in image
+    vector = FindNextVector(cube,image);
+    index = index +1;
+end
+
+               
+            
+            
+           
+            private float[] Find_Next_Vector(float[,,] Data, float[,] Map)
+		N = size(cube);
+			int rows = Data.GetLength(0);
+			int cols = Data.GetLength(1);
+			int waves = Data.GetLength(2);
+			ArrayList topSpectra;
+			IComparer MVS = new Max_Value_Sorter();
+			float[] newVect = new float[waves];
+
+			//Do initial population of list
+			topSpectra = new ArrayList();
+
+			int R = (Map.GetLength(0) > 4) ? 5 : Map.GetLength(0);
+			int C = (Map.GetLength(1) > 4) ? 5 : Map.GetLength(1);
+
+			for(int r = 0; r < R; r++)
+			{
+				for(int c = 0; c < C; c++)
+				{
+					Max_Value val = new Max_Value(Map[r,c],new Point(c,r));
+					topSpectra.Add(val);
+				}
+			}
+			topSpectra.Sort(MVS);
+
+			//Find top Spectra for remaining data set
+			for(int r = 0; r < rows; r++)
+			{
+				for(int c = 0; c < cols; c++)
+				{
+					float power = Map[r,c];
+
+					Max_Value tmp = (Max_Value)topSpectra[0];
+
+					//topSpectra is sorted with the smallest power first
+					if(power > tmp.Value)
+					{
+						//remove lowest value and add in new tmp value with higher power
+						topSpectra.RemoveAt(0);
+						topSpectra.Add(new Max_Value(power,new Point(c,r)));
+						//resort so current lowest power is first
+						topSpectra.Sort(MVS);
+					}
+				}
+			}
+
+			//Calculate average spectrum from topSpectra list
+			for(int n = 0; n < topSpectra.Count; n++)
+			{
+				Max_Value tmp = (Max_Value)topSpectra[n];
+				int r = tmp.Location.Y;
+				int c = tmp.Location.X;
+
+				for(int w = 0; w < waves; w++)
+				{
+					newVect[w] += Data[r,c,w]/(float)topSpectra.Count;
+				}
+			}
+
+			return newVect;
+            
+            
+
+			
+                function num =  Calculate_Coefficients(vector, float Den, int Row, int Col, float[,,] Data)
+		{
+			float num = 0;
+
+			for(int i = 0; i < A.Length; i++)
+			{
+				num += A[i]*Data[Row,Col,i];
+			}
+
+			return num/Den;
+		}
+            
+            
+		

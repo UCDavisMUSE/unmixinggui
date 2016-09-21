@@ -1,0 +1,31 @@
+function [fittedArray,fitParameters] = fitGaussian(array)
+% function fittedArray = fitGaussian(array)
+
+% clc
+% close all;
+% array = fspecial('Gaussian',[100,1],5);
+% t = (1:size(array,1))';
+% array = array + 0.005*randn([100,1]);
+
+t = (1:size(array,1))';
+myFitType = fittype('a * exp( b * (x-c).^2 ) + d');
+[myMax,I] = max(array);
+startPoint = [1 0 I 0.5];
+
+[fitParameters,junk,output] = fit(t,array,myFitType,'Startpoint',startPoint);
+
+a = fitParameters.a;
+b = fitParameters.b;
+c = fitParameters.c;
+d = fitParameters.d;
+
+fittedArray = a*exp(b*(t-c).^2) + d;
+pos(1);
+plot(t,array,t,fittedArray);
+title('Projected mean absolute derivative of the whole cube');
+
+leg = str2mat(['a = ' num2str(a,'%8g')], ['b = ' num2str(b,'%8g')], ... 
+           ['c = ' num2str(c,'%8g')], ['d = ' num2str(d,'%8g')], ...
+           ['y = a*e^{b*(x-c)^2} + d.']);
+xlabel = 'x'
+text(length(t)*0.7,max(array(:))*0.8,leg);

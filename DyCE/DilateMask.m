@@ -1,0 +1,34 @@
+function maskOutput = DilateMask(maskInput,delta)
+% function maskOutput = DilateMask(maskInput, delta)
+%
+% This function EXPANDS (i.e. dilates) the 'maskInput' for (more or less) 'delta' pixels.
+% Its primarely used to calculate background region around the organ. Default:
+% delta = 3.
+% 
+% N.Bozinovic 08/15/08
+
+if nargin < 2
+    delta = 3;
+end
+
+maskOutput = conv2( double(maskInput), ones(delta), 'same');
+
+maskOutput = maskOutput > eps;
+
+% old code, more suitable for c (maybe)
+%
+% N = size(maskInput);
+% maskOutput = zeros(N);
+% for i = delta:N(1)-delta
+%     for j = delta:N(2)-delta
+%         if maskInput(i,j) == 1
+%             for k = -delta:delta
+%                 for l = -delta:delta
+%                     if InBounds(N,[i+k,j+l])
+%                         maskOutput(i+k,j+l) = 1;
+%                     end
+%                 end
+%             end
+%         end
+%     end
+% end

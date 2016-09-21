@@ -1,0 +1,15 @@
+clc
+fid = fopen('data2d.txt', 'r');
+while ~feof(fid)
+    tline = fgets(fid);
+    disp(tline);
+    p1 = strfind(tline,'[');
+    p2 = strfind(tline,',');
+    i = num2str(tline(p1+1:k1-1));
+    p3 = strfind(tline,']');
+    p4 = strfind(tline,'f');
+    
+     
+    
+end
+fclose(fid);
