@@ -305,6 +305,8 @@ handles.pathname = pathname;
 % display
 
 handles.N = size(handles.cube);
+% I think the reason for this is to ensure that N is length three
+% with N(3) = 1 if handles.cube is a 2D array
 handles.N(3) = size(handles.cube,3);
 
 handles = InitializeSpectra(handles);
@@ -524,7 +526,9 @@ elseif handles.N(3) == 1
     set(handles.indexSlider, 'SliderStep', [1, 0.1]);
 else
     set(handles.indexSlider,'Value', handles.index/handles.N(3));
-    set(handles.indexSlider, 'SliderStep', [1/(handles.N(3)-1), 0.1]);
+    %set(handles.indexSlider, 'SliderStep', [1/(handles.N(3)-1), 0.1]);
+    % The above code was throwing a warning. Changed to
+    set(handles.indexSlider, 'SliderStep', [1/(handles.N(3) - 1), 1/(handles.N(3) - 1)]);
 end
 set(handles.indexText,'String', ['# ' num2str(handles.index) ' / ' ...
     num2str(handles.N(3)) '         ' num2str(handles.images(handles.index).wavelength) ' nm']);
