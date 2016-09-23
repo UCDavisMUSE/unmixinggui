@@ -1,5 +1,5 @@
-function varargout = main33_w_ASE_toRCA(varargin)
-% MAIN33_W_ASE M-file for main33_w_ASE_toRCA.fig
+function varargout = UnmixingGUI(varargin)
+% MAIN33_W_ASE M-file for UnmixingGUI.fig
 %      MAIN33_W_ASE, by itself, creates a new MAIN33_W_ASE or raises the existing
 %      singleton*.
 %
@@ -12,16 +12,16 @@ function varargout = main33_w_ASE_toRCA(varargin)
 %      MAIN33_W_ASE('Property','Value',...) creates a new MAIN33_W_ASE or raises the
 %      existing singleton*.  Starting from the left, property value pairs
 %      are
-%      applied to the GUI before main33_w_ASE_toRCA_OpeningFcn gets called.  An
+%      applied to the GUI before UnmixingGUI_OpeningFcn gets called.  An
 %      unrecognized property name or invalid value makes property application
-%      stop.  All inputs are passed to main33_w_ASE_toRCA_OpeningFcn via varargin.
+%      stop.  All inputs are passed to UnmixingGUI_OpeningFcn via varargin.
 %
 %      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
 %      instance to run (singleton)".
 %
 % See also: GUIDE, GUIDATA, GUIHANDLES
 
-% Edit the above text to modify the response to help main33_w_ASE_toRCA
+% Edit the above text to modify the response to help UnmixingGUI
 
 % Last Modified by GUIDE v2.5 17-Jan-2011 19:39:09
 
@@ -29,8 +29,8 @@ function varargout = main33_w_ASE_toRCA(varargin)
 gui_Singleton = 1;
 gui_State = struct('gui_Name',       mfilename, ...
                    'gui_Singleton',  gui_Singleton, ...
-                   'gui_OpeningFcn', @main33_w_ASE_toRCA_OpeningFcn, ...
-                   'gui_OutputFcn',  @main33_w_ASE_toRCA_OutputFcn, ...
+                   'gui_OpeningFcn', @UnmixingGUI_OpeningFcn, ...
+                   'gui_OutputFcn',  @UnmixingGUI_OutputFcn, ...
                    'gui_LayoutFcn',  [] , ...
                    'gui_Callback',   []);
 if nargin && ischar(varargin{1})
@@ -44,8 +44,8 @@ else
 end
 % End initialization code - DO NOT EDIT
 
-% --- Executes just before main33_w_ASE_toRCA is made visible.
-function main33_w_ASE_toRCA_OpeningFcn(hObject, eventdata, handles, varargin)
+% --- Executes just before UnmixingGUI is made visible.
+function UnmixingGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
 % Add path to ASE functions
 addpath('../DyCE/')
@@ -151,8 +151,8 @@ set(handles.figure1, 'UserData', 1);
 
 guidata(hObject, handles);
 
-% Choose default command line output for main33_w_ASE_toRCA
-function varargout = main33_w_ASE_toRCA_OutputFcn(hObject, eventdata, handles)
+% Choose default command line output for UnmixingGUI
+function varargout = UnmixingGUI_OutputFcn(hObject, eventdata, handles)
 varargout{1} = handles.output;
 
 % Menu
