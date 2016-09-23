@@ -52,7 +52,7 @@ addpath('../DyCE/')
 
 % cosmetics:
 clc;
-set(handles.figure1,'Name','Gooch and Housego - Unmixing');
+set(handles.figure1,'Name','UnmixingGUI');
 axes(handles.axes1);
 cla;
 axis image
@@ -139,7 +139,7 @@ for i = 1:handles.maxNumberOfSpectra
     eval(['set(handles.draw' num2str(i) ',''BackgroundColor'',[0.8 0.8 0.8]);']);
 end
 
-% sets varius things 
+% sets various things 
 set(handles.indexText,'String','');
 set(handles.showMarker, 'Value',1);  % will be using patch function 
 handles.numberOfAllowedHotPixels = 5;
@@ -191,7 +191,7 @@ h = findobj('type','figure');
 disp(num2str(length(h)))
 for i = 1:length(h)
     switch h(i).Name
-        case 'Gooch and Housego - Unmixing'
+        case 'UnmixingGUI'
         case 'ShowComposite' 
             if strcmp(ButtonName, 'Yes')
                 close(h(i))
@@ -1343,7 +1343,7 @@ for i = 1: handles.maxNumberOfSpectra
 end
 matrixSpectra = zeros(handles.N(3), n);
 
-% create matrixSpectra, which will then be used in UnmixAlghorithm
+% create matrixSpectra, which will then be used in UnmixAlgorithm
 j = 0;
 for i = 1: handles.maxNumberOfSpectra
     if handles.spectra(i).show
@@ -1354,9 +1354,9 @@ for i = 1: handles.maxNumberOfSpectra
     end
 end
 
-% Unmix (last parameter of the UnmixAlghorithm function is the unmixing method, 1 is pseudoinverse and is
+% Unmix (last parameter of the UnmixAlgorithm function is the unmixing method, 1 is pseudoinverse and is
 % exactly the same as 2: normal matrix method.
-components = UnmixAlghorithm(matrixSpectra, handles.cube, 1);
+components = UnmixAlgorithm(matrixSpectra, handles.cube, 1);
 
 % Approximate the solution to positive values only
 handles.negativeComponentsPart = components < 0;

@@ -1,4 +1,4 @@
-function componentsReshaped = UnmixAlghorithm(spectra, cube, method)
+function componentsReshaped = UnmixAlgorithm(spectra, cube, method)
 % function componentsreshaped = findcomponents(spectra, cube, method)
 %
 % 1) Converts 'cube' to 'stackedCube' (see StackCube.m).
