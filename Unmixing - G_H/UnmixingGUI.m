@@ -1,15 +1,15 @@
 function varargout = UnmixingGUI(varargin)
-% MAIN33_W_ASE M-file for UnmixingGUI.fig
-%      MAIN33_W_ASE, by itself, creates a new MAIN33_W_ASE or raises the existing
+% UnmixingGUI M-file for UnmixingGUI.fig
+%      UnmixingGUI, by itself, creates a new UnmixingGUI or raises the existing
 %      singleton*.
 %
-%      H = MAIN33_W_ASE returns the handle to a new MAIN33_W_ASE or the handle to
+%      H = UnmixingGUI returns the handle to a new UnmixingGUI or the handle to
 %      the existing singleton*.
 %
-%      MAIN33_W_ASE('CALLBACK',hObject,eventData,handles,...) calls the local
-%      function named CALLBACK in MAIN33_W_ASE.M with the given input arguments.
+%      UnmixingGUI('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in UnmixingGUI.M with the given input arguments.
 %
-%      MAIN33_W_ASE('Property','Value',...) creates a new MAIN33_W_ASE or raises the
+%      UnmixingGUI('Property','Value',...) creates a new UnmixingGUI or raises the
 %      existing singleton*.  Starting from the left, property value pairs
 %      are
 %      applied to the GUI before UnmixingGUI_OpeningFcn gets called.  An
