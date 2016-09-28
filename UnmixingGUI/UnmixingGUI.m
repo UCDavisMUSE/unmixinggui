@@ -47,9 +47,6 @@ end
 % --- Executes just before UnmixingGUI is made visible.
 function UnmixingGUI_OpeningFcn(hObject, eventdata, handles, varargin)
 
-% Add path to ASE functions
-addpath('subroutines')
-
 % cosmetics:
 clc;
 set(handles.figure1,'Name','UnmixingGUI');
@@ -74,6 +71,8 @@ handles.defaultCloseAllKey = 'tab';
 % unmixed components
 %
 [path1, name1, ext1] = fileparts(which(mfilename));
+% Add path to ASE functions
+addpath([path1,filesep,'subroutines'])
 
 fid = fopen(fullfile([path1,filesep,'subroutines'],'DefaultPath.txt'));
 if fid == -1
