@@ -1403,7 +1403,7 @@ if ~isfield(handles,'aseComponents')
 end
 for i = 1: handles.numberOfASEComponents
     % 'Border','tight'
-    Shim(handles.aseComponents(:,:,i), i, numberOfASEComponents, ['ASE component # ' num2str(i)]);
+    Shim(handles.aseComponents(:,:,i), i, handles.numberOfASEComponents, ['ASE component # ' num2str(i)]);
 end
 
 % --------------------------------------------------------------------
