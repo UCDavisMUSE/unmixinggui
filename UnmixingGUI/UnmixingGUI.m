@@ -166,7 +166,6 @@ set(handles.figure1, 'UserData', 1);
 % handles = LoadStack_Callback(hObject, eventdata, handles);
 
 % Update handles structure
-
 guidata(hObject, handles);
 
 % Choose default command line output for UnmixingGUI
@@ -1362,12 +1361,17 @@ components = UnmixAlgorithm(matrixSpectra, handles.cube, 1);
 handles.negativeComponentsPart = components < 0;
 components = components.*(components > 0) + 0.001;
 
+numberOfShownSpectra = 0;
+for i = 1:handles.maxNumberOfSpectra
+    numberOfShownSpectra = numberOfShownSpectra + handles.spectra(i).show;
+end
+
 j = 0;
 for i = 1:handles.maxNumberOfSpectra
     if handles.spectra(i).show
         j = j + 1;
         handles.spectra(i).component = components(:,:,j);
-        Shim(handles.spectra(i).component, j, handles.spectra(i).name );
+        Shim(handles.spectra(i).component, j, numberOfShownSpectra, handles.spectra(i).name );
         
 %         if get(handles.showNegativeAreas,'Value')
 %             Shim(handles.negativeComponentsPart(:,:,j), j, handles.spectra(i).name );
@@ -1399,7 +1403,7 @@ if ~isfield(handles,'aseComponents')
 end
 for i = 1: handles.numberOfASEComponents
     % 'Border','tight'
-    Shim(handles.aseComponents(:,:,i),i,['ASE component # ' num2str(i)]);
+    Shim(handles.aseComponents(:,:,i), i, numberOfASEComponents, ['ASE component # ' num2str(i)]);
 end
 
 % --------------------------------------------------------------------
@@ -1556,6 +1560,7 @@ fprintf(fid, '%s\n', handles.FFPathname);
 fprintf(fid, '%s\n', handles.unmixedImagesPathname);
 fclose(fid); 
 
+
 % --------------------------------------------------------------------
 function changeNumberOfAllowedHotPixels_Callback(hObject, eventdata, handles)
 % hObject    handle to changeNumberOfAllowedHotPixels (see GCBO)
@@ -1592,11 +1597,16 @@ set(handles.figure1,'WindowButtonMotionFcn',{@MouseMotion, handles});
 % --- Executes on button press in showNegativeAreas.
 function showNegativeAreas_Callback(hObject, eventdata, handles)
 
+numberOfShownSpectra = 0;
+for i = 1:handles.maxNumberOfSpectra
+    numberOfShownSpectra = numberOfShownSpectra + handles.spectra(i).show;
+end
+
 j = 0;
 for i = 1:handles.maxNumberOfSpectra
     if handles.spectra(i).show
         j = j + 1;
-        Shim(handles.negativeComponentsPart(:,:,j), j, handles.spectra(i).name );
+        Shim(handles.negativeComponentsPart(:,:,j), j, numberOfShownSpectra, handles.spectra(i).name);
     end
 end
 

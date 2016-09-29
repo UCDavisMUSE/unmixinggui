@@ -1,11 +1,5 @@
-function Shim(X,n, myTitle)
-if nargin < 3
-    myTitle = '';
-end
-if nargin < 2 
-    n = 1;
-end
-Pos(n)
+function Shim(X, n, N, myTitle)
+Pos(n, N)
 imagesc(X);
 axis image off;
 colormap(gray);
