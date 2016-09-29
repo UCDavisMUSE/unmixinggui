@@ -1,4 +1,4 @@
-/Users/zharmany/Dropbox/UC Davis Research/Multispectral and dynamic contrast software/Unmixing - G_H/Test stacks/blob1/
-C:\Users\nesa\ForRichard\ForRichard\Composite\
-C:\MJonesUnmixing\0311POCStudy\FlatField5_Stack\
-/Users/zharmany/Desktop/
+/Users/zharmany/git/unmixinggui/Test stacks/blob1/
+/Users/zharmany/Desktop
+/Users/zharmany/Desktop
+/Users/zharmany/Desktop

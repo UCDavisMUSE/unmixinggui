@@ -74,7 +74,8 @@ handles.defaultCloseAllKey = 'tab';
 % Add path to ASE functions
 addpath([path1,filesep,'subroutines'])
 
-fid = fopen(fullfile(path1,'subroutines','DefaultPath.txt'));
+% fid = fopen(fullfile(path1,'subroutines','DefaultPath.txt'));
+fid = fopen(which('DefaultPath.txt'));
 if fid == -1
     handles.imagesPathname = which(mfilename);
     handles.spectraPathname = which(mfilename);
@@ -1546,7 +1547,8 @@ saveToDefaultPathTxtFile(handles);
 
 function saveToDefaultPathTxtFile(handles)
 [path1, name1, ext1] = fileparts(which(mfilename));
-fid = fopen(fullfile(path1,'subroutines','DefaultPath.txt'), 'wt');
+%fid = fopen(fullfile(path1,'subroutines','DefaultPath.txt'), 'wt');
+fid = fopen(which('DefaultPath.txt'), 'wt');
 
 fprintf(fid, '%s\n', handles.imagesPathname);
 fprintf(fid, '%s\n', handles.spectraPathname);
