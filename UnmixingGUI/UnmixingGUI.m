@@ -542,7 +542,7 @@ elseif handles.N(3) == 1
     set(handles.indexSlider, 'Value', 0);
     set(handles.indexSlider, 'SliderStep', [1, 0.1]);
 else
-    set(handles.indexSlider,'Value', handles.index/handles.N(3));
+    set(handles.indexSlider,'Value', (handles.index-1)/(handles.N(3)-1));
     %set(handles.indexSlider, 'SliderStep', [1/(handles.N(3)-1), 0.1]);
     % The above code was throwing a warning. Changed to
     set(handles.indexSlider, 'SliderStep', [1/(handles.N(3) - 1), 1/(handles.N(3) - 1)]);
@@ -761,7 +761,7 @@ ylabel('Intensity');
 % --- Executes on slider movement.
 function indexSlider_Callback(hObject, eventdata, handles)
 slider_position = get(hObject,'Value');
-handles.index = round(handles.N(3)* slider_position);
+handles.index = round((handles.N(3) - 1)*slider_position + 1);
 % exception when slider goes all the way to the end
 if handles.index > handles.N(3)
     handles.index = handles.N(3);
