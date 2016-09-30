@@ -7,7 +7,7 @@ style = 'new';
 
 switch style
     case 'new'
-        set(gcf, 'OuterPosition', [(n-1)*sx/N, 0, sx/N, sy/2])    
+        set(gcf, 'units', 'normalized', 'OuterPosition', [(n-1)/N, 0, 1/N, 1/2])    
     
     case 'old'
         if (n==1)
