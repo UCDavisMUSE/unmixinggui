@@ -238,7 +238,7 @@ guidata(hObject, handles);
  % --------------------------------------------------------------------
  % to be updated
 function loadRGBImage_Callback(hObject, eventdata, handles)
-[filename, pathname] = uigetfile({'*.tif'},'Open Image', handles.unmixedImagesPathname);
+[filename, pathname] = uigetfile({'*.*'},'Open Image', handles.unmixedImagesPathname);
 if size(pathname,2) == 1
     return;
 end
