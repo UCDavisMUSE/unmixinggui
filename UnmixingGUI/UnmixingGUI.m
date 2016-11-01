@@ -590,7 +590,12 @@ if get(handles.displayRgb,'Value')
     end
     
     
+    oldXLim = handles.axes1.XLim;
+    oldYLim = handles.axes1.YLim;
     imshow(J);
+    if any(oldXLim ~= [0, 1]) || any(oldYLim ~= [0, 1])
+        set(handles.axes1,'XLim',oldXLim,'YLim',oldYLim);
+    end
     
     set(handles.axes1,'Tag','axes1');
     handles.updateAxes1 = 0;   
@@ -627,7 +632,13 @@ else  % end of rgb
         % adjust auto-contrast
         J = imadjust(handles.images(handles.index).displayData, a, []);
     end
+    oldXLim = handles.axes1.XLim;
+    oldYLim = handles.axes1.YLim;
     imshow(J);
+    if any(oldXLim ~= [0, 1]) || any(oldYLim ~= [0, 1])
+        set(handles.axes1,'XLim',oldXLim,'YLim',oldYLim);
+    end
+    set(handles.axes1,'XLim',oldXLim,'YLim',oldYLim);
     set(handles.axes1,'Tag','axes1');
     handles.updateAxes1 = 0;
     title([GetLastFolderNameFromPathname(handles.pathname) filesep handles.filenames(handles.index).name],...
