@@ -1405,7 +1405,7 @@ guidata(hObject, handles);
 % --------------------------------------------------------------------
 function ase_Callback(hObject, eventdata, handles)
 handles.numberOfASEComponents = str2double(get(handles.numberOfASEComponentsToSearch,'String'));
-handles.aseComponents = RcaFunction(handles.cube, handles.numberOfASEComponents);
+handles.aseComponents = AseFunction(handles.cube, handles.numberOfASEComponents);
 guidata(hObject, handles);
 showASEComponents_Callback(hObject, eventdata, handles)
 function showASEComponents_Callback(hObject, eventdata, handles)

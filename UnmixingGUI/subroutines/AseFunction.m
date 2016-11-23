@@ -1,7 +1,7 @@
 function organList = AseFunction(cube, numberOfComponents, chooseIndicator, chooseDefault)
-% function organList = RcaFunction(cube, numberOfComponents, chooseIndicator)
+% function organList = AseFunction(cube, numberOfComponents, chooseIndicator)
 %
-% This is the main function for finding RCA components.
+% This is the main function for finding ASE components.
 % Input is a 'cube' and a 'numberOfComponents' we wish to find. If
 % 'chooseIndicator' is true, the function will ask user to choose organs 
 % and only choosen organs will be returned as output 'choosenOrganList'. 
