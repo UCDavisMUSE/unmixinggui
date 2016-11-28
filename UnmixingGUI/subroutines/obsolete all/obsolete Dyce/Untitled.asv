@@ -1,0 +1,5 @@
+function s = fixWidth(str)
+s = [str blanks(100-size(str,2)];
+    
+
+     

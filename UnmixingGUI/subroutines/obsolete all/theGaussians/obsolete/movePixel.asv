@@ -1,0 +1,19 @@
+function [newX,newY] = movePixel( [x2, y2], [x1, y1], N)
+
+%
+d = sqrt( ( x1 - x2 )^2 + (y1 - y2)^2 );
+for i = -1 : 1
+    for j = -1 : 1
+        newD = sqrt( ( x1 - (x2 + i) )^2 + (y1 - (y2 + j))^2 );
+        if newD > d
+            newX = x2 + i;
+            newY = y2 + j;
+        end
+    end
+end
+
+if InBounds (N, [newX,newYx2 + i, y2 + j])
+ msgbox('out of bounds');
+            newX = -1;
+            newY = -1;
+            return;

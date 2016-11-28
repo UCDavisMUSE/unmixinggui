@@ -1,0 +1,15 @@
+function [X,Y] = ConvertMaskToVector( mask)
+% th
+% function [X,Y] = ConvertMaskToVector(mask)
+N = size(mask);
+k = 0;
+clear X Y;
+for i = 1:N(1)
+    for j = 1:N(2)
+        if mask(i,j) == 1
+            k = k + 1;
+            X(k) = i;
+            Y(k) = j;
+        end
+    end
+end

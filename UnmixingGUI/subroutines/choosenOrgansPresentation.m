@@ -1,0 +1,11 @@
+function choosenOrgansPresentation(choosenOrgans)
+posf(1);
+N = size(choosenOrgans,3);
+myMaps;
+for i = 1:min(N,8)
+    subplot(2,4,i)
+    imagesc(choosenOrgans(:,:,i))
+    axis off image
+    colormap gray
+    colorbar
+end

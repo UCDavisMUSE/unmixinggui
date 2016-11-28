@@ -1,0 +1,69 @@
+function PresentOrganList(organList, )
+% function presentOrganList(organList)
+%
+% Presents organs in a nice way.
+%
+% N.Bozinovic, 08/22/08
+
+function ForPresentation(organList, myTitle, myTitleList)
+% function ForPresentation(organList, myTitle)
+%
+% For presenting RCA components
+%
+% N.Bozinovic, 08/15/08
+if nargin < 3
+    myTitleList(
+
+Posf(2);
+N = size(organList,3);
+
+
+
+if N > 8
+    Posf(2);
+    for i = 9:N
+        subplot(2,4,i-8)
+        imagesc(organList(:,:,i))
+        axis off image
+        colormap gray
+        colorbar
+    end
+    annotation1 = annotation(...
+        gcf,'textbox',...
+        'Position',[0.4538 0.9389 0.1049 0.03611],...
+        'FitHeightToText','off',...
+        'LineStyle','none',...
+        'String',{[ 'con''d - ' myTitle]});
+end
+
+
+M = size(organList,3);
+Posf(2);
+if M < 5
+    for i = 1 : M
+        subplot(1,M,i);
+        PutImage(organList(:,:,i), myTitleList(i,:));
+        
+        annotation1 = annotation(...
+        gcf,'textbox',...
+        'Position',[0.4538 0.9389 0.1049 0.03611],...
+        'FitHeightToText','off',...
+        'LineStyle','none',...
+        'String',{myTitle});
+    end
+elseif M < 9
+    for i = 1 : M
+        subplot(2,4,i);
+        PutImage(organList(:,:,i),myTitleList(i,:));
+    end
+elseif M < 17
+    for i = 1 : 8
+        subplot(2,4,i);
+        PutImage(organList(:,:,i),myTitleList(i,:));
+    end
+    Posf(2);
+    for i = 9 : M
+        subplot(2,4,i-8);
+        PutImage(organList(:,:,i),myTitleList(i,:));
+    end 
+end

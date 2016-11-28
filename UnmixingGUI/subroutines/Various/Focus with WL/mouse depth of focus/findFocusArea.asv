@@ -1,0 +1,13 @@
+clc;
+N = size(B);
+M = [2,2];
+C = zeros(N-M);
+
+
+for i=1:N(1)-M(1)
+    witbar(h,'please wait');
+    for j=1:N(2)-M(2)
+        temp = double(B(i:i+M(1)-1,j:j+M(2)-1));
+        C(i,j) = std(temp(:));
+    end
+end

@@ -1,0 +1,12 @@
+function exportTiffs(cube)
+N = size(cube);
+map = colormap(gray(256));
+[filename, pathname] = uiputfile({'*.*'},'Save tifs as');
+if (size(pathname,2) ~= 1)
+    h = waitbar(0,'Exporting tiffs ...');
+    for i = 1:N(3)
+        waitbar(i/N(3),h);
+        imwrite(scale(cube(:,:,i),0,256),map,[pathname filename '_' num2str(i,'%03g') '.tif'])
+    end
+    close(h)
+end

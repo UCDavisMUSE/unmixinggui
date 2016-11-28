@@ -1,0 +1,182 @@
+function varargout = organ_viewer(varargin)
+% ORGAN_VIEWER3 M-file for organ_viewer.fig
+%      ORGAN_VIEWER3, by itself, creates a new ORGAN_VIEWER3 or raises the existing
+%      singleton*.
+%
+%      H = ORGAN_VIEWER3 returns the handle to a new ORGAN_VIEWER3 or the handle to
+%      the existing singleton*.
+%
+%      ORGAN_VIEWER3('CALLBACK',hObject,eventData,handles,...) calls the local
+%      function named CALLBACK in ORGAN_VIEWER3.M with the given input arguments.
+%
+%      ORGAN_VIEWER3('Property','Value',...) creates a new ORGAN_VIEWER3 or raises the
+%      existing singleton*.  Starting from the left, property value pairs are
+%      applied to the GUI before organ_viewer3_OpeningFunction gets called.  An
+%      unrecognized property name or invalid value makes property application
+%      stop.  All inputs are passed to organ_viewer3_OpeningFcn via varargin.
+%
+%      *See GUI Options on GUIDE's Tools menu.  Choose "GUI allows only one
+%      instance to run (singleton)".
+%
+% See also: GUIDE, GUIDATA, GUIHANDLES
+
+% Copyright 2002-2003 The MathWorks, Inc.
+
+% Edit the above text to modify the response to help organ_viewer3
+
+% Last Modified by GUIDE v2.5 08-Jul-2008 12:12:39
+
+% Begin initialization code - DO NOT EDIT
+gui_Singleton = 1;
+gui_State = struct('gui_Name',       mfilename, ...
+                   'gui_Singleton',  gui_Singleton, ...
+                   'gui_OpeningFcn', @organ_viewer_OpeningFcn, ...
+                   'gui_OutputFcn',  @organ_viewer_OutputFcn, ...
+                   'gui_LayoutFcn',  [] , ...
+                   'gui_Callback',   []);
+if nargin && ischar(varargin{1})
+    gui_State.gui_Callback = str2func(varargin{1});
+end
+
+if nargout
+    [varargout{1:nargout}] = gui_mainfcn(gui_State, varargin{:});
+else
+    gui_mainfcn(gui_State, varargin{:});
+end
+% End initialization code - DO NOT EDIT
+
+
+% --- Executes just before organ_viewer3 is made visible.
+function organ_viewer_OpeningFcn(hObject, eventdata, handles, varargin)
+% This function has no output args, see OutputFcn.
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+% varargin   command line arguments to organ_viewer3 (see VARARGIN)
+
+% Choose default command line output for organ_viewer3
+clc;
+load organ_viewer;
+handles.output = hObject;
+handles.X = evalin('base','tblob');
+handles.N = size(handles.X);
+handles.colormap = [0 0 0; 0.25 0.25 0.25; 0.5 0.5 0.5; 1 1 1];
+for i = 1:5
+    handles.populated(i) = 0; 
+end
+handles = selectAll_Callback(handles.selectAll, eventdata, handles);
+guidata(hObject,handles);
+
+% UIWAIT makes organ_viewer3 wait for user response (see UIRESUME)
+% uiwait(handles.figure1);
+
+% --- Outputs from this function are returned to the command line.
+function varargout = organ_viewer_OutputFcn(hObject, eventdata, handles) 
+% varargout  cell array for returning output args (see VARARGOUT);
+% hObject    handle to figure
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Get default command line output from handles structure
+varargout{1} = handles.output;
+
+% --- Executes on button press in organ buttons.
+function organ1_Callback(hObject, eventdata, handles)
+handles.populated(1) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ2_Callback(hObject, eventdata, handles)
+handles.populated(2) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ3_Callback(hObject, eventdata, handles)
+handles.populated(3) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ4_Callback(hObject, eventdata, handles)
+handles.populated(4) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ5_Callback(hObject, eventdata, handles)
+handles.populated(5) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ6_Callback(hObject, eventdata, handles)
+handles.populated(6) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ7_Callback(hObject, eventdata, handles)
+handles.populated(7) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ8_Callback(hObject, eventdata, handles)
+handles.populated(8) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+function organ9_Callback(hObject, eventdata, handles)
+handles.populated(9) = get(hObject,'Value');
+update(handles);
+guidata(hObject,handles);
+
+
+
+% --- Executes on button press in clearAll.
+function clearAll_Callback(hObject, eventdata, handles)
+% hObject    handle to clearAll (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+for i = 1:9
+    handles.populated(i) = 0;
+end
+update(handles);
+guidata(hObject,handles);
+
+% --- Executes on button press in selectAll.
+function handles = selectAll_Callback(hObject,eventdata, handles)
+% hObject    handle to selectAll (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+for i = 1:9
+    handles.populated(i) = 1;
+end
+update(handles);
+guidata(hObject,handles);
+
+% --- Executes on button press in update.
+function update(handles)
+% hObject    handle to update (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+temp = zeros(handles.N(1),handles.N(2));
+for i = 1:9
+    if handles.populated(i) == 1 
+        temp = temp + handles.X(:,:,i);
+    end
+end
+set(handles.organ1,'Value',handles.populated(1));
+set(handles.organ2,'Value',handles.populated(2));
+set(handles.organ3,'Value',handles.populated(3));
+set(handles.organ4,'Value',handles.populated(4));
+set(handles.organ5,'Value',handles.populated(5));
+set(handles.organ5,'Value',handles.populated(5));
+set(handles.organ5,'Value',handles.populated(5));
+set(handles.organ5,'Value',handles.populated(5));
+set(handles.organ5,'Value',handles.populated(5));
+
+
+axes(handles.axes1);
+imagesc(temp);
+colormap(handles.colormap);
+axis image off
+
+

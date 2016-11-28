@@ -1,0 +1,21 @@
+function pureSpectrum = CalculatePureSpectra(mixedSpectraum, autoSpectra, fitOffset)
+
+% This function outputs the optimal pure spectrum ('pureSpectrum') for given
+% 'mixedSpectraum' and 'autoSpectra' (name originates from autofluorescence)
+% In the first part optimal parameters 
+
+pureSpectrum = zeros(size(mixedSpectraum));
+
+if(fitOffset)
+    output = fminsearch(@(parameters)SpectraDifferenceError(mixedSpectraum, autoSpectra, parameters), [1, -5]);
+else
+    output = fminsearch(@(parameters)SpectraDifferenceError(mixedSpectraum, autoSpectra, parameters), [1]);
+end
+
+mag = output(1);
+if length(output) > 1
+    off = output(2);
+else
+    off = 0;
+end
+pureSpectrum = mixedSpectraum + off - mag * autoSpectra;

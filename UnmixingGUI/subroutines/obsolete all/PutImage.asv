@@ -1,0 +1,55 @@
+function PutImage(varargin)
+% function PutImage(varargin)
+%
+% varargin = [X, myTitle, ...
+%             'scale', [min, max], 'colorbar','off/on']
+%
+% N. Bozinovic 08/23/08
+
+X = varargin{1};
+myTitle = varargin{2};
+if nargin == 2
+   imagesc(X);
+end
+
+if nargin == 4
+    text1 = varargin{3};
+    var1 = varargin{4};
+    if strcmp(text1, 'scale') || strcmp(text1, 'Scale')
+        imagesc(X, var1);
+    elseif strcmp(text1, 'colorbar') || strcmp(text2, 'Colorbar')
+        imagesc(X);
+        if strcmp(var1, 'on') 
+            colorbar;
+        end
+    end
+end
+
+if nargin == 6
+    text1 = varargin{3};
+    var1 = varargin{4};
+    text2 = varargin{5};
+    var2 = varargin{6};
+    
+    if strcmp(text1, 'scale') || strcmp(text1, 'Scale')
+        imagesc(X, var1);
+    elseif strcmp(text1, 'colorbar') || strcmp(text2, 'Colorbar')
+        imagesc(X);
+        if strcmp(var1, 'on') 
+            colorbar;
+        end
+    end
+    
+    if strcmp(text2, 'scale') || strcmp(text1, 'Scale')
+        imagesc(X, var2);
+    elseif strcmp(text2, 'colorbar') || strcmp(text2, 'Colorbar')
+        imagesc(X);
+        if strcmp(var2, 'on') 
+            colorbar;
+        end
+    end
+end
+
+axis off image;
+colormap(gray);
+title(myTitle);

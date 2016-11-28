@@ -1,0 +1,16 @@
+function bool = SpectraDistinctiveEnough(pureSpectrum, mixedSpectrum, percentage)
+% function bool = SpectraDistinctiveEnough(pureSpectrum, mixedSpectrum, percentage)
+%
+% Finds if pure spectra is distincive enough if peak-to-peak pure spectra
+
+if nargin < 3
+    percentage = 0.1;
+end
+
+maxMixed = max(mixedSpectrum(:));
+minMixed = min(mixedSpectrum(:));
+
+maxPure = max(pureSpectrum(:));
+minPure = min(pureSpectrum(:));
+
+bool =  ( maxPure - minPure ) > percentage * ( maxMixed - minMixed );

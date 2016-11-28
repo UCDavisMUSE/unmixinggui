@@ -1,0 +1,6 @@
+clc
+close all
+h = fspecial('Gaussian',[10,10],5); 
+PutImageAt(h,'',1)
+Pos(3)
+plot(h(

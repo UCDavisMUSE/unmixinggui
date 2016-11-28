@@ -1,0 +1,13 @@
+f-number = 4;
+ccd chip size ~ 5x7 mm
+distance from the target ~ 12''
+exp - 1660 ms
+
+
+
+
+
+
+
+
+

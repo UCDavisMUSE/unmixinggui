@@ -1,0 +1,45 @@
+
+
+
+
+% mouse = 'Mouse 12 ventral  rotated';
+% handles.mouse = mouse;
+% handles.path = [dir1 mouse '\'];
+% handles.BW = edgeFinder(mouse);
+% 
+% %% loads one mouse and puts one image just to look good.
+% x = zeros(N);
+% for i = 1:N(3)
+%     temp = double(imread( ...
+%         [dir1 mouse '\' mouse '_' num2str(Nstart + i -1,'%03g') '.tif']));
+%     %x(:,:,i) = handles.BW.*temp(rect(1):rect(3),rect(2):rect(4));
+%     x(:,:,i) = temp(rect(1):rect(3),rect(2):rect(4));
+% end
+% 
+% 
+% function G = resizeMovie(M,ROI)
+% % G = resizeMovie(M,ROI); resizes playMovie M for a factor of ROI
+% 
+% if nargin == 1
+%     zoom = floor(500/size(M(1).cdata,2));
+% end
+% 
+% G = M;
+% a = ones(zoom);
+% for i = 1:size(M,2)
+%     G(i).cdata = flipud(uint8(kron(double(M(i).cdata),double(a))));
+% end
+% 
+% % --- Executes on button press in playMovie.
+% function playMovie_Callback(hObject, eventdata, handles)
+% 
+% % section for making and displying the playMovie
+% 
+% for i = 1:handles.N(3)
+%     M(i) = im2frame(scale(round(handles.x(:,:,i)),1,handles.colormapSize), handles.colormap);
+% end
+% figure;
+% axis square off;
+% G = resizeMovie(M);
+% movie(G,1)
+% close;

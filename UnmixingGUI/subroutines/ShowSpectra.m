@@ -1,0 +1,69 @@
+function  ShowSpectra( compositeImage, inside, outside, spectrum, parameters)
+% function  showSpectra( compositeImage, inside, outside, spectrum, parameters)
+% 
+% Gives a nice and intuitive way of what is going on
+% inside = { pointsUsedInside, [X(K),Y(K)], insideSpectrum };
+% outside = { pointsUsedOutside, [XI(K),YI(K)], outsideSpectrum};
+%
+% N. Bozinovic 08/15/08
+
+
+pointsUsedInside = inside{1};
+coordInside = inside{2};
+Xinside = coordInside(1);
+Yinside = coordInside(2);
+insideSpectrum = inside{3};
+
+pointsUsedOutside = outside{1};
+coordOutside = outside{2};
+Xoutside = coordOutside(1);
+Youtside = coordOutside(2);
+outsideSpectrum = outside{3};
+
+Posf(1);
+subplot(2,2,1);
+M = size(compositeImage);
+
+% creates the outside arc
+partOfTheOutsideContour = zeros( M(1), M(2));
+for k = 1:length(pointsUsedOutside.X)
+    partOfTheOutsideContour( pointsUsedOutside.X(k), pointsUsedOutside.Y(k)) = 1;
+end
+
+% creates the inside arc
+partOfTheInsideContour = zeros( M(1), M(2));
+for k = 1:length(pointsUsedInside.X)
+    partOfTheInsideContour( pointsUsedInside.X(k), pointsUsedInside.Y(k)) = 1;
+end
+
+% puts arcs on the composite image
+PutImage( 0.8 * compositeImage + 0.1 * BWToRGB(partOfTheOutsideContour) + ...
+    0.1 * BWToRGB(partOfTheInsideContour), ...
+    ['perfect one, puo:' num2str(length(pointsUsedOutside.X)) ...
+    ', pui:' num2str(length(pointsUsedInside.X))]);
+
+% puts crosses
+PutCross(Xoutside,Youtside,gcf,[1 0 0]);
+PutCross(Xinside,Yinside,gcf,[0 1 0]);
+
+% plots spectra
+subplot(2,2,2);
+plot( insideSpectrum,'g');
+hold on
+plot( outsideSpectrum,'r');
+legend('inside','outside')
+title('raw spectra')
+subplot(2,2,3);
+plot( insideSpectrum,'g');
+hold on
+plot( outsideSpectrum,'r');
+hold on
+plot( insideSpectrum - outsideSpectrum,'b');
+legend('inside','outside','insideSpectrum - outsideSpectrum');
+title(['corrected with the magnitude = ' num2str(parameters(1)), ', offset = ' num2str(parameters(2))]);
+subplot(2,2,4);
+plot( spectrum,'c');
+hold on
+plot( insideSpectrum - outsideSpectrum,'b');
+legend('pure','insideSpectrum - outsideSpectrum');
+title(['magnitude = ' num2str(parameters(1)), ', offset = ' num2str(parameters(2))]);

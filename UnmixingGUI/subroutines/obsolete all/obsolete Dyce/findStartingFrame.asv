@@ -1,0 +1,12 @@
+function findStartingFrame(hObject, eventdata, handles)
+
+array = (abs(shiftdim( mean(mean( handles.deriv(handles.ROI1,handles.ROI2,1:N(3)),1),2),1)))';
+       
+t = (1:size(array,1))';
+
+[fittedArray,fitParameters] = fitGaussian(array);
+
+%plot(t,array,'o',t,fittedArray,'--');
+%leg = str2mat(['a = ' num2str(fitParameters.a,'%8g')], ['b = ' num2str(fitParameters.b,'%8g')], ... 
+           ['c = ' num2str(fitParameters.c,'%8g')], ['d = ' num2str(fitParameters.d,'%8g')]);
+%text(length(t)*0.7,max(array(:))*0.8,leg);

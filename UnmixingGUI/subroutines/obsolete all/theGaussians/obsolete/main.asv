@@ -1,0 +1,110 @@
+% Main program for creating Gaussian blobs. 
+%
+% Problem: 
+%   Segment areas in a user-defined movie. The default movie containes 3 gaussians 
+%   with user-defined spatial and temporal properties.
+%
+% Mathematical definition of the problem:
+% Solve equation: stackedCube = spectra (also A)* coeff, for coeff variable.
+% Dimensions are: 
+% [N(3) x N(1)*N(2)] = [N(3) x numberOfComponents] * 
+%                      [numberOfComponents x N(1)*N(2)].
+%
+%   stackedCube - each column represents one pixel's intensity in time;
+%   spectra - each column represents organ time spectrum,
+%   coeff - column of coeff represents contributions of organs at the
+%   corresponding pixel i.e. every column of coeff represents the unmixing coefficients.
+% 
+% Solutions: 
+% 1. pseudo-inverse: the easiest oclcne (but far from ideal), 
+% coeff = pinv(A)*stackedCube.
+% 2. normal equations (this is what Kirk is using): 
+% (A'*A) * coeff = A'*stackedCube     i.e.      coeff = inv(A'*A)* A'*stackedCube,
+% 3. non-negative least square method: 
+% coeff = lsqnonneg(A,stackedCube).
+%
+% Code explanation:
+%   1) User creates 3D matrix, cube, which is our observation (cube(:,:,1) is the first image, cube(:,:,2) the second
+%   and so on),
+%   2) Determine spectra (if not manually, true spectra is used),
+%   3) Play movie (optional),
+%   3) Solve the problem and display results.
+%
+% N. Bozinovic, 08/19/08
+
+%% 0. basic input
+clc;
+close all;
+N = [100 100 100]; % imagesize in one dimension
+MyMaps; % creates R,G,B colormaps
+myMap = colormap(gray(236));
+numberOfOrgans = 3;
+close;
+
+
+%% 1. Create 3D matrix, cube.
+finalSpectra = zeros(N(3),1); 
+
+% ... [X, Y, spatialSigma], [temporalMean, temporalSigma, maxIntenisty]);
+[cube1, finalSpectra(:,1)] = SpanGauss(N,3*[15,15,10],[0.5,0.5,10]);
+[cube2, finalSpectra(:,2)] = SpanGauss(N,3*[15,15,2],[0.4,0.05,20]);
+[cube3, finalSpectra(:,3)] = SpanGauss(N,3*[17,17,4],[0.6,0.08,20]);
+cube = double( 0.33*( double( cube1) + double( cube2) + double( cube3)));
+%cube = double( 0.5*( double( cube1) + double( cube2)));
+%cube = AddNoise( cube, 2);
+cube = cube .* ( cube >= 0);
+%imagesc(sum(cube,3))
+
+% 
+% %% 2. Determine spectra
+% button = questdlg('Do you want manually to determine spectra?   .');
+% if strcmp(button,'Yes')
+%     A = ManuallyDetermineSpectra(cube);
+% elseif strcmp( button, 'No') 
+%     A = finalSpectra; 
+%     note = 'True spectra will be used.';
+% else
+%     msgbox('Program terminated');
+%     break
+% end
+% % Plot choosen spectra
+% pos(1); 
+% plot( NormalizeSpectra(A)); 
+% hold on;
+% plot(NormalizeSpectra(finalSpectra),'--');
+A = finalSpectra;
+Pos(3);
+plot( finalSpectra,'--');
+%legend(num2str(( 1 : numberOfOrgans)'));
+title('choosen and true spectra');
+
+% B = [1 100; 1 50; 50 100];
+% for i = 1:size(A,2)
+%     A(1:B(i,1),i) = 0;
+%     A(B(i,2):N(3),i) = 0;
+% end
+
+
+%% 3. Play movie
+button = questdlg('Do you want to see the movie?   .');
+if strcmp(button,'Yes')
+    M = MakeMovie(cube,'Scale','off');
+    close;
+    G = ResizeMovie(M);
+    PlayMovie(G);
+elseif strcmp(button,'No')
+else
+    msgbox('Program terminated');
+    return
+end
+%%
+% o = [1 2]
+% B = A(:,o);
+% pos(2)
+% plot(finalSpectra(:,o))
+% 4. Finds coefficients
+Composite( FindCoeff(A, cube, 1), 'pinv' );
+% Composite( FindCoeff(A,cube,N,2), 'N.E.');
+% Composite( FindCoeff(A,cube,N,3), 'lsqnonneg');
+
+% msgbox(note,'Note','modal');

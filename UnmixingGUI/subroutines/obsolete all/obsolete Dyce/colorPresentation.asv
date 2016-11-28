@@ -1,0 +1,48 @@
+function colorPresentation(imageList);
+myMaps;
+N = size(imageList);
+N(3) = 2;
+for i = 1:N(3)  
+    %for contours only
+    %subimage(250*uint8(coeffReshaped(:,:,i)/max(max(coeffReshaped(:,:,i)))),map);
+    subplot(2,4,i);
+     switch i
+        case 1
+            myMap = mapRed;
+        case 2 
+            myMap = mapGreen;
+        case 3 
+            myMap = mapBlue;
+        case 4
+            myMap = mapRed;
+        case 5 
+            myMap = mapGreen;
+        case 6 
+            myMap = mapBlue;
+        case 7
+            myMap = mapRed;
+        case 8 
+            myMap = mapGreen;
+        case 9 
+            myMap = mapBlue;
+     end
+
+    a = round(250*imageList(:,:,i)/max(max(imageList(:,:,i))));
+    subimage(a,myMap);
+    axis image off;
+    title(['component ' num2str(i)]);
+    %colorbar;
+end
+figure;
+composite = zeros(N(1),N(2),3);
+for i = 1:N(3)
+    composite(:,:,mod(i,3)+1) = composite(:,:,mod(i,3)+1) + imageList(:,:,i);
+    
+    composite(:,:,2) = imageList(
+image(scale(int8(imageList(:,:,1:N(3))),0,1));
+axis image off;
+end
+
+%    image(scale(imageList(:,:,4:5),0,1));
+
+

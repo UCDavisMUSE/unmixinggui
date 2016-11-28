@@ -1,0 +1,12 @@
+cube = x;
+N = size(cube);
+for i = 2:size(organList,3)
+    temp = organList(:,:,i);
+    organMask(:,:,i) = (temp > 0.4*max(temp(:)));
+    %puti(organMask(:,:,i),num2str(i),i);
+    for j = 1:N(3)
+        prof(j,i) =   
+end
+for
+for i = 1:N(3)
+    prof(i) = 

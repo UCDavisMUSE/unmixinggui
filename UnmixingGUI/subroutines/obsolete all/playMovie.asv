@@ -1,0 +1,5 @@
+function playMovie(mov)
+% function playMovie(mov)
+handle = posf(2);
+movie(handle,M,1,10,[200 200 0 0])
+close(handle);

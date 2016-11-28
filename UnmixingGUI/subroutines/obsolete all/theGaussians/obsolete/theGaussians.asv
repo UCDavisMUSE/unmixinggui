@@ -1,0 +1,172 @@
+clc;
+close all;
+path(path,'D:\Dyce main\');
+% Main program. 
+%
+% Problem: 
+%   Segment areas in a user-defined movie. The default movie containes 3 gaussians.
+%
+% Mathematial definition of the problem:  
+%   Solve equation: y = A*coeff for coeff;
+%   y - column of y represents one pixel's intensity in time;
+%   A - column of A represents organ time spectra;
+%   coeff - column of coeff represents contributions of organs at the
+%   corresponding pixel i.e. every column of coeff represents the unmixing coefficients.
+% 
+% Solution: the easiest one (but far from ideal) is coeff = pinv(A)*y.
+% Solution number 2 is to solve normal equation:
+% (A'*A) * coeff = A'*y i.e. coeff = inv(A'*A)* A'*y.
+% Solution number is coeff = lsqnonneg(A,y);
+%
+% Code explanation:
+%   1) Program first creates a 3D matrix, x, which is our observation (x(:,:,1) is the first image, x(:,:,2) the second
+%   and so on). Program then converts x to y, which is the 2D matrix where images are represented as columns.
+%   2) Program then loads spectra i.e. determines matrix A (manually or otherwise).
+%   3) Solves the problem
+%   4) Display results
+
+%% basic input
+N = [100 100 100]; % imagesize in one dimension
+t = 1:N(3);
+maps; % creates R,G,B colormaps
+myMap = colormap(gray(256));
+numberOfOrgans = 3;
+close;
+
+%% creates a 3D matrix, x.
+trueProfile = zeros(N(3),1); 
+%[cube, temporalProfile] = spanGauss(N, spatial, temporal);
+% spanGauss(N,[mouseX, mouseY, spatialSigma],...
+%             [temporalMean, temporalSigma, maxIntenisty]);
+[cube1, trueProfile(:,1)] = spanGauss(N,3*[15,15,10],[0.5,0.5,280]);
+[cube2, trueProfile(:,2)] = spanGauss(N,3*[10,10,2],[0.4,0.05,500]);
+[cube3, trueProfile(:,3)] = spanGauss(N,3*[10,13,4],[0.6,0.08,350]);
+x = double( 0.33*(double(cube1) + double(cube2) + double(cube3)));
+x = addNoise(x,5);
+%imagesc(sum(x,3))
+
+%% section that converts x to y by stacking images as columns
+y = zeros(N(1)*N(2),N(3));
+for i = 1:N(3) 
+    temp = x(:,:,i); 
+    y(:,i) = temp(:); 
+end
+y = y';
+
+%% section for the profiles
+
+button = questdlg('Do you want to manually to determine spectra?   .');
+if strcmp(button,'Yes');
+    pos(1)
+    imagesc(sum(x,3));
+    title('Click at the 3 points, then press enter')
+    colormap(myMap);
+    axis square off;
+    [X,Y] = ginput;
+    close;
+    numberOfDots = size(X,1);
+    myDot = [X Y];
+    myProfile = zeros(numberOfDots,N(3));
+    for i = 1:numberOfDots
+        for j = 1:N(3)
+            myProfile(i,j) = x(round(myDot(i,2)),round(myDot(i,1)),j);
+        end
+    end
+%     pos(1);
+%     plot(t,myProfile,'-.','Linewidth',4);
+%     leg = (1:numberOfDots)';
+%     legend(num2str(leg));
+%     title('Choosen profiles');
+    
+    A = myProfile'; 
+    note = 'Manualy determined spectra was used.         .';
+
+elseif strcmp(button,'No') 
+    A = trueProfile; 
+    note = 'True spectra was used.';
+else
+    msgbox('Program terminated');
+    break
+end
+
+% B = [1 100; 1 50; 50 100];
+% for i = 1:size(A,2)
+%     A(1:B(i,1),i) = 0;
+%     A(B(i,2):N(3),i) = 0;
+% end
+
+%% section for making and displying the movie
+mi = min(min(min(x)));
+ma = max(max(max(x)));
+button = questdlg('Do you want to see the movie?   .');
+if strcmp(button,'Yes')
+    for i = 1:N(3)
+        M(i) = im2frame( 1 + scale(x(:,:,i),0,250,mi,ma),myMap);
+    end
+    pos(2);
+    axis square off;
+    G = resizeMovie(M);
+    movie(G,1)
+    close;
+elseif strcmp(button,'No')
+else
+    msgbox('Program terminated');
+    return
+end
+pos(1)
+plot(t,A);
+title('Choosen profiles');
+
+% aviobj = avifile('film');
+% movie2avi(G,aviobj);
+% AVIOBJ = CLOSE(AVIOBJ)
+
+
+% %% PCA section
+% close all
+% [coeff, score] = princomp(y);
+% comp = zeros(size(x,1),size(x,2),4);
+% figure; 
+% for i = 1:4
+%     subplot(2,2,i)
+%     comp(:,:,i) = reshape(score(:,i),size(x,1),size(x,2));  
+%     imagesc(comp(:,:,i));  
+%     colormap gray; 
+%     colorbar;
+%     axis square off;
+% end
+% figure;
+% imagesc(comp(:,:,1) - comp(:,:,2));
+% title('1-2')
+% colormap(gray);
+% colorbar
+% figure;
+% imagesc(comp(:,:,1) - comp(:,:,2) - comp(:,:,3));
+% title('1-2-3')
+% colormap(gray);
+% colorbar
+% figure;
+% imagesc(comp(:,:,1) - comp(:,:,3));
+% title('1-3')
+% colormap(gray);
+% colorbar
+% figure;
+% imagesc(comp(:,:,2) - comp(:,:,3));
+% title('2-3')
+% colormap(gray);
+% colorbar
+
+%% section that finds the coefficients which is the purpose of this program
+findCoeff(A,y,N,numberOfOrgans,1);
+findCoeff(A,y,N,numberOfOrgans,2);
+%findCoeff(A,y,N,numberOfOrgans,3);
+
+%% section that plots true spectra
+pos(4)
+plot(trueProfile)
+leg = (1:numberOfOrgans)';
+legend(num2str(leg));
+title('true spectra');
+
+% %% notes
+% msgbox(note,'Note','modal');

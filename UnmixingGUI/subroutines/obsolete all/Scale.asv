@@ -1,0 +1,25 @@
+function A = Scale(cube, cubeNewMin, cubeNewMax, cubeMin, cubeMax)
+% function A = scale(cube, cubeNewMin, cubeNewMax, cubeMin, cubeMax)
+%
+% Scales images of 'cube' from [cubeMin,cubeMax] to [cubeNewMin,cubeNewMax]
+% If cubeMin and cubeMax are ommited they are calculated for each frame
+% separately.
+%
+% N.Bozinovic 08/19/08
+N = size(cube);
+A = zeros(N);
+if size(N,2) == 2 
+    N(3) = 1;
+end
+    
+for i = 1 : N(3)
+    if nargin < 4
+        cubeMin = min( min( cube(:,:,i)));
+        cubeMax = max( max( cube(:,:,i)));
+    end
+    if cubeMin == cubeMax
+        A(:,:,i) = ones( N(1), N(2) ) * cubeMin;
+    else
+        A(:,:,i) = cubeNewMin + (cubeNewMax - cubeNewMin) * (cube(:,:,i) - cubeMin) / (cubeMax - cubeMin);
+    end
+end

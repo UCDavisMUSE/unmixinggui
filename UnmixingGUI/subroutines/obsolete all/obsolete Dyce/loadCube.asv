@@ -1,0 +1,33 @@
+function [cube,name,pathnameOut] = loadCube(Nstart,Nlength,rect,pathname)
+% function [cube,name,pathnameOut] = loadCube(Nstart,Nlength,rect,pathname)
+% if pathname is omited, promts user for input
+if nargin < 4
+    [filename, pathname] = uigetfile({'*.tif'},'Load cube','C:\Hillman_062607\DYCE Day 0\');
+end
+
+d = dir(pathname);
+j = 0;
+clear g;
+for i = 1:size(d,1)
+    if (d(i).isdir ~= 1) && strcmp(getExtension(d(i).name),'tif')
+        j = j + 1;
+        g(j) = d(i);
+    end
+end
+N(1) = rect(3) - rect(1) + 1; % imagesize in one dimension
+N(2) = rect(4) - rect(2) + 1;
+N(3) = Nlength;
+cube = zeros(N);
+
+if Nstart + Nlength - 1 > length(g)
+    msgbox(['There are only ' num2str(length(g),'%03g') ' images in the folder.            .']);
+    return;
+else
+    %        'Maximum number '                             ' of frames will be returned.         .']);
+    for i = 1:N(3)
+        temp = double(imread([pathname g(Nstart + i - 1).name]));
+        cube(:,:,i) = temp(rect(1):rect(3),rect(2):rect(4));
+    end
+    name = g(1).name(1:size(g(1).name,2)-8);
+end
+pathnameOut = pathname;

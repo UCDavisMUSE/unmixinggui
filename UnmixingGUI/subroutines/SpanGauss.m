@@ -1,0 +1,41 @@
+function [cube, temporalProfile] = SpanGauss(N, spatial, temporal);
+% function [cube,temporalProfile] = spanGauss(N, spatial, temporal);
+% 
+% Purpose: This function creates 3D matrix 'cube' (basically a movie) of a single gaussian blob defined by the
+% 'N', 'spatial' and 'temporal' variables.
+%
+% Input: N - size (3D);
+%        spatial = [mouseX, mouseY, spatialSigma];
+%        temporal = [temporalMean, temporalSigma, maxIntenisty]);
+%
+% Output: 'cube', 
+%         'temporalProfile' is a temporal profile acording to the
+%         'temporal' variables
+%
+% N. Bozinovic 8/19/08
+
+mouseX = spatial(1);
+mouseY = spatial(2);
+spatialSigma = spatial(3);
+
+temporalMean = temporal(1);
+temporalSigma = temporal(2);
+maxIntensity = temporal(3);
+
+cube = zeros(N);
+
+temporalProfile = fspecial( 'Gaussian', [1 N(3)], N(3) * temporalSigma);
+temporalProfile = wshift( '1d', temporalProfile, round( N(3) * ( 0.5 - temporalMean)));
+temporalProfile = maxIntensity * temporalProfile / max(temporalProfile);
+
+% blob = fspecial('Gaussian',[N(1), N(2)], spatialSigma);
+blob = circle(N(1),N(2),spatialSigma);
+blob = wshift('2d',blob,round([ N(1)/2 + 1 - mouseX, N(2)/2 + 1 - mouseY]));
+blob = blob/max(blob(:));
+
+for i = 1:N(3)
+    temp = blob * temporalProfile(i);
+    if max(temp(:)) > eps
+        cube(:,:,i) = temp;
+    end
+end

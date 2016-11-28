@@ -1,0 +1,76 @@
+%% find the rect for spine and kidneys
+close all;
+
+puti(x(:,:,40),'',1);
+rect = getrect;
+ROI1s = round([rect(2):rect(2)+rect(4)-1]);
+ROI2s = round([rect(1):rect(1)+rect(3)-1]);
+
+rect = getrect;
+ROI1k = round([rect(2):rect(2)+rect(4)-1]);
+ROI2k = round([rect(1):rect(1)+rect(3)-1]);
+puti(x(ROI1s,ROI2s,30),'spine',1);
+puti(x(ROI1k,ROI2k,30),'kidneys',2);
+
+%% plots the spectra
+N = size( x(ROI1k,ROI2k,:) );
+
+kidneysArray = shiftdim( mean(mean(  x(ROI1k,ROI2k,:) ,1),2),1);
+pos(4)
+plot(kidneysArray)
+title('kidneys spectra');
+
+spineArray = shiftdim( mean(mean(  x(ROI1s,ROI2s,:) ,1),2),1);
+pos(3)
+plot(spineArray)
+title('spine spectra');
+
+pos(2)
+plot(kidneysArray - spineArray);
+title('difference')
+
+%% finds the new cube
+close all;
+cube = zeros(N);
+for i = 1:N(3)
+    cube(:,:,i) = x(ROI1k,ROI2k,i) - spineArray(i);
+end
+% 
+% newSpineArray = shiftdim( mean(mean(cube,1),2),1);
+% pos(1)
+% plot(newSpineArray)
+puti(cube(:,:,40),'new one',1)
+%% finds the newDerivative
+h = waitbar(0,'Finding derivatives ...');
+temp = zeros(N(3),1);
+deltaSpace = 5;
+deltaTime = 5;
+newDeriv = zeros(N);
+for i = deltaSpace + 1 : N(1) - deltaSpace
+    waitbar(i/N(1),h)
+    for  j = deltaSpace + 1 : N(2) - deltaSpace
+        temp = smooth ( shiftdim(mean(mean( ...
+            cube( i - round((deltaSpace-1)/2) : i + round((deltaSpace-1)/2), ...
+                  j - round((deltaSpace-1)/2) : j + round((deltaSpace-1)/2), :) ,1),2),1) , deltaTime);
+        temp1 = [0; diff(temp)];
+        for k = 1:N(3)
+            newDeriv(i,j,k) = temp1(k);
+        end
+    end
+end
+close(h)
+%%
+organList = rca_function(x(ROI1k,ROI2k,:),8,'oldCube');
+organList = rca_function(deriv(ROI1k,ROI2k,:),8,'oldDeriv');
+
+organList = rca_function(cube,8,'newCube');
+organList = rca_function(newDeriv,8,'newDeriv');
+
+%%
+pos(4);
+newX = ROI1s(1) - ROI1k(1) + 1;
+newY = ROI2s(1) - ROI2k(1) + 1;
+spineNewDerivArray = shiftdim( mean(mean( cube ( newX : newX + size(ROI1s,2) - 1, newY : newY + size(ROI2s,2) - 1 ,:) ,1),2),1);
+plot(spineNewDerivArray);
+
+%exportTiffs(cube,'nonscaled');
