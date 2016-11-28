@@ -63,7 +63,8 @@ if ~isfield(handles,'match')
 else
     set(handles.Aselection,'String', selectedNamesStruct);
     set(handles.Aselection,'Value',1);
-    set(handles.Aselection,'BackgroundColor', handles.spectra(handles.match(1)).color);
+    % This code changes the background color of the drop-down selections:
+    %set(handles.Aselection,'BackgroundColor', handles.spectra(handles.match(1)).color);
 end
 if size(handles.match,2) == 1 % make sure match{2} exists
     close
@@ -72,11 +73,13 @@ if size(handles.match,2) == 1 % make sure match{2} exists
 else
     set(handles.Bselection,'String', selectedNamesStruct);
     set(handles.Bselection,'Value',2);
-    set(handles.Bselection,'BackgroundColor', handles.spectra(handles.match(2)).color);
+    % This code changes the background color of the drop-down selections:
+    %set(handles.Bselection,'BackgroundColor', handles.spectra(handles.match(2)).color);
 end
 
 set(handles.Cselection,'String', allNamesStruct);
-set(handles.Cselection,'BackgroundColor', handles.spectra(firstAvailable).color);
+% This code changes the background color of the drop-down selections:
+%set(handles.Cselection,'BackgroundColor', handles.spectra(firstAvailable).color);
 set(handles.Cselection,'Value',firstAvailable);
 
 Update_Callback(hObject, eventdata, handles);
@@ -173,7 +176,8 @@ function scaled_Callback(hObject, eventdata, handles)
 % --- Executes on selection change in Aselection.
 function Aselection_Callback(hObject, eventdata, handles)
 number = get(hObject,'Value');
-set(handles.Aselection,'BackgroundColor', handles.spectra(handles.match(number)).color);
+% This code changes the background color of the drop-down selections:
+%set(handles.Aselection,'BackgroundColor', handles.spectra(handles.match(number)).color);
 
 % contents = get(hObject,'String');
 % contents{get(hObject,'Value')}
@@ -181,12 +185,14 @@ set(handles.Aselection,'BackgroundColor', handles.spectra(handles.match(number))
 % --- Executes on selection change in Bselection.
 function Bselection_Callback(hObject, eventdata, handles)
 number = get(hObject,'Value');
-set(handles.Bselection,'BackgroundColor', handles.spectra(handles.match(number)).color);
+% This code changes the background color of the drop-down selections:
+%set(handles.Bselection,'BackgroundColor', handles.spectra(handles.match(number)).color);
 
 % --- Executes on selection change in Cselection.
 function Cselection_Callback(hObject, eventdata, handles)
 number = get(hObject,'Value');
-set(handles.Cselection,'BackgroundColor', handles.spectra(number).color);
+% This code changes the background color of the drop-down selections:
+%set(handles.Cselection,'BackgroundColor', handles.spectra(number).color);
 
 % --- Executes on button press in Update.
 function handles = Update_Callback(hObject, eventdata, handles)
@@ -263,7 +269,8 @@ for i = 1:handles.maxNumberOfSpectra
     end
 end
 
-set(handles.Cselection,'BackgroundColor', handles.spectra(firstAvailable).color);
+% This code changes the background color of the drop-down selections:
+%set(handles.Cselection,'BackgroundColor', handles.spectra(firstAvailable).color);
 set(handles.Cselection,'Value',firstAvailable);
 
 eval(['set(handles.select' num2str(Aindex) ',''Value'',0);']);
