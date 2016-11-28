@@ -1,4 +1,4 @@
-/Users/zharmany/git/unmixinggui/Test stacks/blob1/
+/Users/zharmany/git/springer-unmixing-chapter/data/Kidney-median-filter/tif/
+/Users/zharmany/git/springer-unmixing-chapter/data/Kidney-median-filter-unmix-elastin/
 /Users/zharmany/Desktop
-/Users/zharmany/Desktop
-/Users/zharmany/Desktop
+/Users/zharmany/Desktop/
