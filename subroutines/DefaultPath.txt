@@ -1,4 +1,4 @@
-/Users/zharmany/git/springer-unmixing-chapter/data/Kidney-median-filter/tif/
+\\vmware-host\Shared Folders\git\unmixinggui\Test stacks\Kidney\
 /Users/zharmany/git/springer-unmixing-chapter/data/Kidney-median-filter-unmix-elastin/
 /Users/zharmany/Desktop
 /Users/zharmany/Desktop/Unmix/
