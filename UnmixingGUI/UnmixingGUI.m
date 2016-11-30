@@ -71,11 +71,11 @@ handles.defaultCloseAllKey = 'tab';
 % unmixed components
 %
 [path1, name1, ext1] = fileparts(which(mfilename));
+path2 = path1(1: find(path1 == filesep, 1, 'last'));
 % Add path to ASE functions
-addpath([path1,filesep,'subroutines'])
-
-% fid = fopen(fullfile(path1,'subroutines','DefaultPath.txt'));
-fid = fopen(which('DefaultPath.txt'));
+addpath([path2,'subroutines'])
+fid = fopen(fullfile(path2,'subroutines','DefaultPath.txt'));
+%fid = fopen(which('DefaultPath.txt'));
 if fid == -1
     handles.imagesPathname = which(mfilename);
     handles.spectraPathname = which(mfilename);
