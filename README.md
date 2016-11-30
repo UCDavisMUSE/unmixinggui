@@ -4,6 +4,8 @@ This is a MATLAB graphical user interface for performing linear unmixing on mult
 
 This is free open-source code. Forking of this code is welcome!
 
+For those without MATLAB, there is a [macOS installer](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Standalone/UnmixingGUI/for_redistribution/UnmixingGUI_Installer.zip) for a Standalone version of the UnmixingGUI.
+
 ## Contributors
 
 - [Zachary T. Harmany](http://drz.ac), PhD, Department of Pathology and Laboratory Medicine, UC Davis Medical Center. (ztharmany@ucdavis.edu)
