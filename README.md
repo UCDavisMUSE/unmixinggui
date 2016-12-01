@@ -2,7 +2,7 @@
 
 This is a MATLAB graphical user interface for performing linear unmixing on multispectral images. 
 
-This is free open-source code. Forking of this code is welcome!
+This is free open-source code. Forking of this code is welcome! This code is meant to be extended, and we welcome any improvements or enhancements to the software. We hope that this software becomes useful for the scientific community.
 
 ## Downloads
 
