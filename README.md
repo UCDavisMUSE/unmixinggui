@@ -4,11 +4,19 @@ This is a MATLAB graphical user interface for performing linear unmixing on mult
 
 This is free open-source code. Forking of this code is welcome!
 
+## Downloads
+
 For those without MATLAB, there are Standalone versions of the UnmixingGUI:
 
 - Download the [UnmixingGUI Installer for macOS](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Standalone/macOS/UnmixingGUI/for_redistribution/UnmixingGUI_Installer.zip)
 
 - Download the [UnmixingGUI Installer for Windows](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Standalone/Windows/UnmixingGUI/for_redistribution/UnmixingGUI_Installer.zip)
+
+Additionally, we provide two test datasets:
+
+- [Blobs](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Test%20stacks/Blobs/Blobs.zip): Simulated multispectral dataset
+
+- [Kidney](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Test%20stacks/Kidney/Kidney.zip): Fluorescent three-color (RGB) dataset
 
 
 ## Contributors
