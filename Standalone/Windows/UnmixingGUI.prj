@@ -1,5 +1,5 @@
 <deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
-  <configuration file="\\vmware-host\Shared Folders\git\unmixinggui\Standalone\Windows\UnmixingGUI.prj" location="\\vmware-host\Shared Folders\git\unmixinggui\Standalone\Windows" name="UnmixingGUI" target="target.ezdeploy.standalone" target-name="Application Compiler">
+  <configuration build-checksum="1676031580" file="C:\Users\zharmany\Desktop\unmixinggui\Standalone\Windows\UnmixingGUI.prj" location="C:\Users\zharmany\Desktop\unmixinggui\Standalone\Windows" name="UnmixingGUI" preferred-package-location="C:\Users\zharmany\Desktop\unmixinggui\Standalone\Windows\UnmixingGUI\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
     <param.appname>UnmixingGUI</param.appname>
     <param.icon />
     <param.icons />
@@ -65,49 +65,17 @@
       <param.log.file />
     </unset>
     <fileset.main>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\UnmixingGUI\UnmixingGUI.m</file>
+      <file>C:\Users\zharmany\Desktop\unmixinggui\UnmixingGUI\UnmixingGUI.m</file>
     </fileset.main>
     <fileset.resources>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\DefaultPath.txt</file>
+      <file>C:\Users\zharmany\Desktop\unmixinggui\subroutines\DefaultPath.txt</file>
     </fileset.resources>
     <fileset.package />
-    <fileset.depfun>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\AseFunction.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\BWToRGB.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\CalculateMeanSpectra.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\CalculateWeightFromWavelength.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\CPSfunction.fig</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\CPSfunction.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\CreateComposite.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\CreateLegend.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\FindCoeff.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\FindMaxPixels.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\FindNextVector.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\GetExtension.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\GetLastFolderNameFromPathname.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\GetWavelengthFromName.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\HowManyTiffsInTheFolder.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\KodakSensorData.csv</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\ListSort.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\LoadCube.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\LoadCubeFromStruct.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\LoadTiffsFromFolder.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\ParsePathname.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\Pos.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\RemoveTrailingPositionsInCell.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\RemoveTrailingZeros.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\Shim.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\ShowComposite.fig</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\ShowComposite.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\StackCube.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\SubtractSpectra.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\subroutines\UnmixAlgorithm.m</file>
-      <file>\\vmware-host\Shared Folders\git\unmixinggui\UnmixingGUI\UnmixingGUI.fig</file>
-    </fileset.depfun>
+    <fileset.depfun />
     <build-deliverables>
-      <file location="${PROJECT_ROOT}\UnmixingGUI\for_testing" name="UnmixingGUI.exe" optional="false">\\vmware-host\Shared Folders\git\unmixinggui\Standalone\Windows\UnmixingGUI\for_testing\UnmixingGUI.exe</file>
-      <file location="${PROJECT_ROOT}\UnmixingGUI\for_testing" name="splash.png" optional="false">\\vmware-host\Shared Folders\git\unmixinggui\Standalone\Windows\UnmixingGUI\for_testing\splash.png</file>
-      <file location="${PROJECT_ROOT}\UnmixingGUI\for_testing" name="readme.txt" optional="true">\\vmware-host\Shared Folders\git\unmixinggui\Standalone\Windows\UnmixingGUI\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\UnmixingGUI\for_testing" name="readme.txt" optional="true">C:\Users\zharmany\Desktop\unmixinggui\Standalone\Windows\UnmixingGUI\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\UnmixingGUI\for_testing" name="UnmixingGUI.exe" optional="false">C:\Users\zharmany\Desktop\unmixinggui\Standalone\Windows\UnmixingGUI\for_testing\UnmixingGUI.exe</file>
+      <file location="${PROJECT_ROOT}\UnmixingGUI\for_testing" name="splash.png" optional="false">C:\Users\zharmany\Desktop\unmixinggui\Standalone\Windows\UnmixingGUI\for_testing\splash.png</file>
     </build-deliverables>
     <workflow />
     <matlab>
