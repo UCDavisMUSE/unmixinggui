@@ -16,7 +16,7 @@ Additionally, we provide two test datasets:
 
 - [Blobs](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Test%20stacks/Blobs/Blobs.zip): Simulated multispectral dataset
 
-- [Kidney](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Test%20stacks/Kidney/Kidney.zip): Three-color (RGB) multiply-stained fluorescence dataset of porcine kidney
+- [Kidney](https://github.com/UCDavisMUSE/unmixinggui/raw/master/Test%20stacks/Kidney/Kidney.zip): Three-color (RGB) multiply-stained fluorescence image of porcine kidney
 
 
 ## Contributors
